@@ -10,7 +10,7 @@ import (
 var filterModule *modules.Module
 
 func init() {
-	filterModule = modules.Register("filter", filterPrep, filterStart, nil, "core", "intel")
+	filterModule = modules.Register("filter", filterPrep, filterStart, nil, "core", "intel", "plugin")
 	subsystems.Register(
 		"filter",
 		"Privacy Filter",

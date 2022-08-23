@@ -20,6 +20,7 @@ import (
 	"github.com/safing/portmaster/network/netutils"
 	"github.com/safing/portmaster/network/packet"
 	"github.com/safing/portmaster/network/state"
+	"github.com/safing/portmaster/plugin"
 	"github.com/safing/portmaster/process"
 	"github.com/safing/portmaster/profile"
 	"github.com/safing/portmaster/profile/endpoints"
@@ -54,6 +55,7 @@ var defaultDeciders = []deciderFn{
 	checkBypassPrevention,
 	checkFilterLists,
 	checkCustomFilterList,
+	checkPlugins,
 	dropInbound,
 	checkDomainHeuristics,
 	checkAutoPermitRelated,
@@ -62,6 +64,12 @@ var defaultDeciders = []deciderFn{
 // DecideOnConnection makes a decision about a connection.
 // When called, the connection and profile is already locked.
 func DecideOnConnection(ctx context.Context, conn *network.Connection, pkt packet.Packet) {
+	// report the connection to all reporter plugins.
+	// If plugin support is disabled this is a no-op.
+	defer func() {
+		plugin.Module.ReportConnection(conn)
+	}()
+
 	// Check if we have a process and profile.
 	layeredProfile := conn.Process().Profile()
 	if layeredProfile == nil {
@@ -658,6 +666,21 @@ func checkCustomFilterList(_ context.Context, conn *network.Connection, p *profi
 			conn.Deny("country is in the custom filter list", customlists.CfgOptionCustomListFileKey)
 			return true
 		}
+	}
+
+	return false
+}
+
+func checkPlugins(_ context.Context, conn *network.Connection, _ *profile.LayeredProfile, _ packet.Packet) bool {
+	verdict, reason, err := plugin.Module.DecideOnConnection(conn)
+	if err != nil {
+		return false
+	}
+
+	if verdict != network.VerdictUndecided {
+		// TODO(ppacher): let the plugin add a reason context and a reason message.
+		conn.SetVerdict(verdict, reason, "", nil)
+		return true
 	}
 
 	return false
