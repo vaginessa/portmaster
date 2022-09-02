@@ -27,7 +27,7 @@ require (
 	golang.org/x/net v0.0.0-20220826154423-83b083e8dc8b
 	golang.org/x/sync v0.0.0-20220819030929-7fc1605a5dde
 	golang.org/x/sys v0.0.0-20220829200755-d48e67d00261
-	google.golang.org/grpc v1.27.1
+	google.golang.org/grpc v1.42.0
 	google.golang.org/protobuf v1.27.1
 	zombiezen.com/go/sqlite v0.10.1
 )
@@ -40,7 +40,7 @@ require (
 	github.com/awalterschulze/gographviz v2.0.3+incompatible // indirect
 	github.com/bluele/gcache v0.0.2 // indirect
 	github.com/davecgh/go-spew v1.1.1 // indirect
-	github.com/fatih/color v1.7.0 // indirect
+	github.com/fatih/color v1.13.0 // indirect
 	github.com/fxamacker/cbor/v2 v2.4.0 // indirect
 	github.com/go-ole/go-ole v1.2.6 // indirect
 	github.com/gofrs/uuid v4.2.0+incompatible // indirect
@@ -50,12 +50,12 @@ require (
 	github.com/gorilla/mux v1.8.0 // indirect
 	github.com/gorilla/websocket v1.5.0 // indirect
 	github.com/hashicorp/errwrap v1.1.0 // indirect
-	github.com/hashicorp/go-hclog v0.14.1 // indirect
+	github.com/hashicorp/go-hclog v1.0.0 // indirect
 	github.com/hashicorp/yamux v0.0.0-20180604194846-3520598351bb // indirect
 	github.com/inconshreveable/mousetrap v1.0.1 // indirect
 	github.com/josharian/native v1.0.0 // indirect
 	github.com/kardianos/osext v0.0.0-20190222173326-2bc1f35cddc0 // indirect
-	github.com/mattn/go-colorable v0.1.4 // indirect
+	github.com/mattn/go-colorable v0.1.9 // indirect
 	github.com/mattn/go-isatty v0.0.16 // indirect
 	github.com/mdlayher/netlink v1.6.0 // indirect
 	github.com/mdlayher/socket v0.2.3 // indirect
